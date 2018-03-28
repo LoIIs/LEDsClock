@@ -1,0 +1,1 @@
+"USER\bmp.c" OPTIMIZE (8,SPEED) BROWSE INCDIR(.\Include) DEFINE (FOSC_160000) DEBUG OBJECTEXTEND PRINT(.\Listings\bmp.lst) OBJECT(.\Objects\bmp.obj)

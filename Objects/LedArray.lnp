@@ -1,0 +1,9 @@
+".\Objects\STARTUP.obj",
+".\Objects\main.obj",
+".\Objects\bsp_sensor.obj",
+".\Objects\display.obj",
+".\Objects\Common.obj",
+".\Objects\Delay.obj" 
+TO ".\Objects\LedArray" 
+PRINT(".\Listings\LedArray.m51") RAMSIZE(256) 
+DISABLEWARNING (16) 

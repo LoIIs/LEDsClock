@@ -1,0 +1,76 @@
+C51 COMPILER V9.56.0.0   BMP                                                               03/15/2018 09:15:24 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE BMP
+OBJECT MODULE PLACED IN .\Objects\bmp.obj
+COMPILER INVOKED BY: D:\Program Files\Keil_v5\C51\BIN\C51.EXE USER\bmp.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\Include) DEFI
+                    -NE(FOSC_160000) DEBUG OBJECTEXTEND PRINT(.\Listings\bmp.lst) OBJECT(.\Objects\bmp.obj)
+
+line level    source
+
+   1          #include "N76E003.h"
+   2          sbit HC595_SER = P0^0;
+   3          sbit HC595_SCLK = P1^0;
+   4          sbit HC595_RCLK = P1^1;
+   5          sbit HC595_SCLR = P1^2;
+   6          sbit ICN2012_A0 = P0^5;
+   7          sbit ICN2012_A1 = P0^6;
+   8          sbit ICN2012_A2 = P0^7;
+   9          sbit ICN2012_E1 = P1^5;
+  10          
+  11          uint32_t reverse_32Bits(uint32_t rowData)
+*** ERROR C129 IN LINE 11 OF USER\bmp.c: missing ';' before 'reverse_32Bits'
+  12          {
+  13              uint8_t i,temp;
+  14              uint32_t value=0;
+  15                  temp = (rowData>>16)&0xFF;
+  16              for (i = 0; i < 8; ++i)
+  17              {
+  18                  value <<= 1;
+  19                  value |= (temp&0x01);
+  20                  temp >>= 1; 
+  21              }   
+  22                  temp = (rowData>>8)&0xFF;
+  23              for (i = 0; i < 8; ++i)
+  24              {
+  25                  value <<= 1;
+  26                  value |= (temp&0x01);
+  27                  temp >>= 1; 
+  28              }
+  29                  temp = rowData&0xFF;
+  30              for (i = 0; i < 8; ++i)
+  31              {
+  32                  value <<= 1;
+  33                  value |= (temp&0x01);
+  34                  temp >>= 1; 
+  35              }
+  36              return ~value;
+  37          }
+  38          
+  39          void write_ROW(uint32_t rowData)
+  40          {
+  41                  uint8_t i;
+  42                  uint32_t temp,line=0xF0F0F0;
+  43                  HC595_RCLK = 0;
+  44                  rowData = reverse_32Bits(rowData);
+  45                  
+  46                  for(i=0;i<24;i++)
+  47                  {
+  48                          HC595_SCLK = 0;
+  49                          if(rowData&0x800000)
+  50                          {
+  51                                  HC595_SER=1;
+  52                          }
+  53                          else
+C51 COMPILER V9.56.0.0   BMP                                                               03/15/2018 09:15:24 PAGE 2   
+
+  54                          {
+  55                                  HC595_SER=0;
+  56                          }
+  57                          HC595_SCLK = 1;
+  58                          rowData <<= 1;          
+  59                  }
+  60                  HC595_RCLK = 1;
+  61          }
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  1 ERROR(S)
