@@ -24,7 +24,7 @@ void sys_Init()
 void main()
 {
 	sys_Init();
-//	DS3231_SetTime(10,06,20,22,3,18,4);		//给时钟设置初始值
+//	DS3231_SetTime(40,28,22,12,4,18,4);		//给时钟设置初始值
 	SI7021_Measure();
 	while(1)
 	{	
